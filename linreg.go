@@ -31,7 +31,7 @@ import (
 //		mse := math.Sqrt(v)
 //		fmt.Printf("a=%.3f, b=%.3f, mse=%.3f, std=%.3f\n", a_, b_, mse, float64(std))
 //	}
-func LinReg(x []float64, y[] float64) (alpha float64, beta float64, variance float64) {
+func LinReg(x []float64, y []float64) (alpha float64, beta float64, variance float64) {
 	var xy, x_, y_, x2_ float64
 	if len(x) != len(y) {
 		panic("The lengths of x and y need to be equal")
@@ -40,22 +40,22 @@ func LinReg(x []float64, y[] float64) (alpha float64, beta float64, variance flo
 	n := float64(len(x))
 
 	for i, _ := range x {
-		xy += x[i]*y[i] / n
-		x2_ += x[i]*x[i] / n
+		xy += x[i] * y[i] / n
+		x2_ += x[i] * x[i] / n
 		x_ += x[i]
 		y_ += y[i]
 	}
 	x_ = x_ / n
 	y_ = y_ / n
 
-	den := x2_ - x_ * x_
+	den := x2_ - x_*x_
 
 	beta = (xy - x_*y_) / den
-	alpha = (y_ * x2_ - x_ * xy) / den
+	alpha = (y_*x2_ - x_*xy) / den
 
 	for i, _ := range x {
 		e := y[i] - x[i]*beta - alpha
-		variance += e*e / n
+		variance += e * e / n
 	}
 	return alpha, beta, variance
 }
